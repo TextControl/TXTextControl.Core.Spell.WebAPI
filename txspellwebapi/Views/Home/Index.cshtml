@@ -1,0 +1,79 @@
+﻿<div class="textbox" spellcheck="false" contenteditable="true" id="textbox"></div>
+
+<input value="Check" type="button" onclick="checkText()" />
+
+<input value="Create Suggestions" type="button" onclick="getSuggestions()" />
+
+<input value="Create Synonyms" type="button" onclick="getSynonyms()" />
+
+<input value="Detect Language Scopes" type="button" onclick="getScopes()" />
+
+<div id="results"></div>
+
+<script src="~/js/TXSpell.js"></script>
+
+@section Scripts {
+    <script>
+
+        async function checkText() {
+            // call the check method
+            var results = await TXSpell.check(document.getElementById('textbox').textContent);
+
+            // check console for details
+            console.log(results);
+            var consoleText = "";
+
+            // loop through the results and return the text
+            results.forEach(function (element) {
+                consoleText += "<p>Misspelled: <strong>" + element.text + "</strong></p>";
+            });
+
+            document.getElementById('results').innerHTML = consoleText;
+        }
+
+        async function getSuggestions() {
+            var results = await TXSpell.createSuggestions(document.getElementById('textbox').textContent, "en_US", 20);
+            console.log(results);
+
+            var consoleText = "";
+
+            // loop through the results and return the text
+            results.forEach(function (element) {
+                consoleText += "<p>Suggestion: <strong>" + element + "</strong></p>";
+            });
+
+            document.getElementById('results').innerHTML = consoleText;
+        }
+
+        async function getSynonyms() {
+            var results = await TXSpell.createSynonyms(document.getElementById('textbox').textContent, "en_US");
+            console.log(results);
+
+            var consoleText = "";
+
+            // loop through the results and return the text
+            results.forEach(function (element) {
+                element.synonyms.forEach(function (synonym) {
+                    consoleText += "<p>Synonym: <strong>" + synonym.id + "</strong></p>";
+                });
+            });
+
+            document.getElementById('results').innerHTML = consoleText;
+        }
+
+        async function getScopes() {
+            var results = await TXSpell.detectLanguageScopes(document.getElementById('textbox').textContent);
+            console.log(results);
+
+            var consoleText = "";
+
+            // loop through the results and return the text
+            results.forEach(function (element) {
+                consoleText += "<p>Detected language: <strong>" + element.language + "</strong></p>";
+            });
+
+            document.getElementById('results').innerHTML = consoleText;
+        }
+
+    </script>
+}
