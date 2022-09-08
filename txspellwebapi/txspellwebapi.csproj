@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <Reference Include="TXSpell">
-      <HintPath>..\..\..\..\..\..\Program Files\Text Control GmbH\TX Spell 7.0 .NET for Windows Forms\Assembly\TXSpell.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Text Control GmbH\TX Spell 10.0 .NET for Windows Forms\Assembly\TXSpell.dll</HintPath>
     </Reference>
   </ItemGroup>
 
